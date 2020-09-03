@@ -1,0 +1,35 @@
+service: serverless-image-converter
+
+provider:
+    name: aws
+    region: eu-central-1
+    runtime: provided
+    iamRoleStatements:
+        - Effect: Allow
+          Action:
+              - s3:PutObject
+              - s3:GetObject
+              - s3:DeleteObject
+          Resource: 'arn:aws:s3:::faithcanon-dev-source/*'
+        - Effect: Allow
+          Action:
+              - s3:PutObject
+              - s3:GetObject
+              - s3:DeleteObject
+              - s3:PutObjectAcl
+          Resource: 'arn:aws:s3:::faithcanon-dev-derivated/*'
+
+plugins:
+    - ./vendor/bref/bref
+
+functions:
+    function:
+        handler: index.php
+        description: ''
+        layers:
+            - ${bref:layer.php-73}
+
+# Exclude files from deployment
+package:
+    exclude:
+        - 'tests/**'
