@@ -28,6 +28,7 @@ class ImageConverter
     protected $imagine;
 
     protected $sizes = [
+        '80x80' => ['w' => 200, 'h' => 200],
         '200x200' => ['w' => 200, 'h' => 200],
         '400x400' => ['w' => 400, 'h' => 400],
     ];
